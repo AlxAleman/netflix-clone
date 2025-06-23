@@ -1,0 +1,47 @@
+﻿
+Path                     
+----                     
+G:\PROJECTS\netflix-clone
+ .astro
+    collections
+    content-assets.mjs
+    content-modules.mjs
+    content.d.ts
+    data-store.json
+    settings.json
+    types.d.ts
+ .vscode
+    extensions.json
+    launch.json
+ public
+    favicon.svg
+ src
+    assets
+       astro.svg
+       background.svg
+    components
+       Header.tsx
+       Hero.tsx
+       MovieCard.tsx
+       MovieRow.tsx
+       Welcome.astro
+    layouts
+       Layout.astro
+    pages
+       index.astro
+    services
+       tmdb.ts
+    types
+        movie.ts
+ .env
+ .gitignore
+ astro.config.mjs
+ package-lock.json
+ package.json
+ README.md
+ tailwind.config.cjs
+ tailwind.config.js
+ tree-estructura.txt
+ tsconfig.json
+
+
