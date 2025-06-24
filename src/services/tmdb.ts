@@ -146,9 +146,22 @@ class TMDBService {
   }
 
   async searchMovies(query: string): Promise<Movie[]> {
+  try {
+    // Intentar buscar en la API real
     const data = await this.fetchFromTMDB(`/search/movie?query=${encodeURIComponent(query)}`);
     return data.results;
+  } catch (error) {
+    // Si hay error, buscar en los mocks usando coincidencia parcial (case-insensitive)
+    const mock = this.getMockData();
+    const q = query.toLowerCase();
+    return mock.results.filter(
+      m =>
+        m.title.toLowerCase().includes(q) ||
+        (m.overview && m.overview.toLowerCase().includes(q))
+    );
   }
+}
+
 
   getImageUrl(path: string, size: string = 'w500'): string {
     if (!path) {

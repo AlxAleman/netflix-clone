@@ -1,17 +1,33 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import MovieCard from './MovieCard';
+import { MovieCardSkeleton } from './SkeletonLoader';
 import type { Movie } from '../types/movie';
 
 interface MovieRowProps {
   title: string;
   movies: Movie[];
+  onMovieClick: (movie: Movie) => void;
+  loading?: boolean;
 }
 
-export default function MovieRow({ title, movies }: MovieRowProps) {
+export default function MovieRow({ title, movies, onMovieClick, loading = false }: MovieRowProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
+  const [visibleCount, setVisibleCount] = useState(6);
+
+  useEffect(() => {
+    const updateVisibleCount = () => {
+      if (window.innerWidth < 640) setVisibleCount(3);
+      else if (window.innerWidth < 1024) setVisibleCount(4);
+      else setVisibleCount(6);
+    };
+
+    updateVisibleCount();
+    window.addEventListener('resize', updateVisibleCount);
+    return () => window.removeEventListener('resize', updateVisibleCount);
+  }, []);
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
@@ -42,7 +58,7 @@ export default function MovieRow({ title, movies }: MovieRowProps) {
       
       <div className="relative group">
         {/* Left arrow */}
-        {showLeftArrow && (
+        {showLeftArrow && !loading && (
           <button
             onClick={() => scroll('left')}
             className="absolute left-2 top-1/2 transform -translate-y-1/2 z-10 bg-black/60 hover:bg-black/80 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -52,7 +68,7 @@ export default function MovieRow({ title, movies }: MovieRowProps) {
         )}
 
         {/* Right arrow */}
-        {showRightArrow && (
+        {showRightArrow && !loading && (
           <button
             onClick={() => scroll('right')}
             className="absolute right-2 top-1/2 transform -translate-y-1/2 z-10 bg-black/60 hover:bg-black/80 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -71,12 +87,21 @@ export default function MovieRow({ title, movies }: MovieRowProps) {
             msOverflowStyle: 'none'
           }}
         >
-          {movies.map((movie) => (
-            <MovieCard
-              key={movie.id}
-              movie={movie}
-            />
-          ))}
+          {loading ? (
+            // Show skeleton loaders
+            Array.from({ length: visibleCount }).map((_, index) => (
+              <MovieCardSkeleton key={`skeleton-${index}`} />
+            ))
+          ) : (
+            // Show actual movies
+            movies.map((movie) => (
+              <MovieCard
+                key={movie.id}
+                movie={movie}
+                onMovieClick={onMovieClick}
+              />
+            ))
+          )}
         </div>
       </div>
     </div>
