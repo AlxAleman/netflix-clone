@@ -14,7 +14,10 @@ G:\PROJECTS\netflix-clone
 │   ├── extensions.json
 │   └── launch.json
 ├── public
-│   └── favicon.svg
+│   ├── alex-logo.ico
+│   ├── alex-logo.png
+│   ├── favicon.svg
+│   └── netflix-clone.webp
 ├── src
 │   ├── assets
 │   │   ├── astro.svg
@@ -28,11 +31,12 @@ G:\PROJECTS\netflix-clone
 │   │   ├── NetflixApp.tsx
 │   │   ├── SkeletonLoader.tsx
 │   │   ├── TrailerModal.tsx
-│   │   ├── useColorExtractor.ts
 │   │   └── Welcome.astro
 │   ├── layouts
 │   │   └── Layout.astro
 │   ├── pages
+│   │   ├── api
+│   │   │   └── search.ts
 │   │   └── index.astro
 │   ├── services
 │   │   └── tmdb.ts

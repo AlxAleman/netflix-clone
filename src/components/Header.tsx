@@ -27,14 +27,25 @@ export default function Header({ onSearchClick }: HeaderProps) {
       <div className="flex items-center justify-between px-4 md:px-8 py-3 max-w-7xl mx-auto">
         {/* Logo & Navigation */}
         <div className="flex items-center space-x-6">
-          <span 
-            className="text-xl md:text-2xl font-extrabold tracking-tight text-white select-none cursor-pointer hover:text-red-500 transition-colors"
-            style={{
-              textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
-            }}
-          >
-            NETFLIX
-          </span>
+          <div className="flex items-center space-x-3">
+            {/* Alex Logo */}
+            <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white flex items-center justify-center p-1">
+              <img 
+                src="/alex-logo.png" 
+                alt="Alex Logo" 
+                className="w-full h-full object-contain rounded-full"
+              />
+            </div>
+            {/* Netflix Text */}
+            <span 
+              className="text-xl md:text-2xl font-extrabold tracking-tight text-white select-none cursor-pointer hover:text-red-500 transition-colors"
+              style={{
+                textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
+              }}
+            >
+              NETFLIX
+            </span>
+          </div>
           {/* Navigation - hidden on mobile */}
           <nav className="hidden md:flex space-x-6 text-sm font-medium">
             <a href="#" className="text-gray-200 hover:text-white transition-colors duration-200">Home</a>
